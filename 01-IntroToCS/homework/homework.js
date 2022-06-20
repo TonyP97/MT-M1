@@ -13,12 +13,12 @@ function BinarioADecimal(num) {
 function DecimalABinario(num) {
   // tu codigo aca
   let number = num;
-  let binary = (num % 2).toString();
+  let binario = (num % 2).toString();
   for (;num > 1;) {
     num = parseInt(num / 2);
-    binary = (num % 2) + (binary);
+    binario = (num % 2) + (binario);
   }
-  return binary
+  return binario
 
 }
 
