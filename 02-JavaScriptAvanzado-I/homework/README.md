@@ -7,6 +7,8 @@ Determiná que será impreso en la consola, sin ejecutar el código.
 
 > Investiga cuál es la diferencia entre declarar una variable con `var` y directamente asignarle un valor.
 
+Las variables declaradas se limitan al contexto de ejecucion en el cual son declaradas (por ejemplo una función). Las variables no declaradas son siempre globales.
+
 ```javascript
 x = 1;
 var a = 5;
@@ -25,14 +27,14 @@ var c = function(a, b, c) {
   console.log(b);
 }
 c(8,9,10);
-console.log(b);
-console.log(x);
+console.log(b);  // 10
+console.log(x);  // 1
 ```
 
 ```javascript
-console.log(bar);
-console.log(baz);
-foo();
+console.log(bar); // undefined
+console.log(baz);  // undefined
+foo();  // 'Hola!'
 function foo() { console.log('Hola!'); }
 var bar = 1;
 baz = 2;
@@ -43,19 +45,19 @@ var instructor = "Tony";
 if(true) {
     var instructor = "Franco";
 }
-console.log(instructor);
+console.log(instructor);  // "Franco"
 ```
 
 ```javascript
 var instructor = "Tony";
-console.log(instructor);
+console.log(instructor); // "Tony"
 (function() {
    if(true) {
       var instructor = "Franco";
-      console.log(instructor);
+      console.log(instructor); // "Franco"
    }
 })();
-console.log(instructor);
+console.log(instructor);  // "Tony"
 ```
 
 ```javascript
@@ -64,33 +66,33 @@ let pm = "Franco";
 if (true) {
     var instructor = "The Flash";
     let pm = "Reverse Flash";
-    console.log(instructor);
-    console.log(pm);
+    console.log(instructor); // "The Flash"
+    console.log(pm);  //  "Reverse Flash"
 }
-console.log(instructor);
-console.log(pm);
+console.log(instructor); // "The Flash"
+console.log(pm);  // "Franco"
 ```
 ### Coerción de Datos
 
 ¿Cuál crees que será el resultado de la ejecución de estas operaciones?:
 
 ```javascript
-6 / "3"
-"2" * "3"
-4 + 5 + "px"
-"$" + 4 + 5
-"4" - 2
-"4px" - 2
-7 / 0
-{}[0]
-parseInt("09")
-5 && 2
-2 && 5
-5 || 0
-0 || 5
-[3]+[3]-[10]
-3>2>1
-[] == ![]
+6 / "3"  // 2
+"2" * "3"  // 6
+4 + 5 + "px" // 9px
+"$" + 4 + 5  // $45
+"4" - 2  // 2
+"4px" - 2 // NaN
+7 / 0  // Infinity
+{}[0] // Undefined
+parseInt("09") // 9
+5 && 2  // 2
+2 && 5  // 5
+5 || 0  // 5
+0 || 5  // 5
+[3]+[3]-[10] // 23
+3>2>1  // false
+[] == ![] // true
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -111,7 +113,7 @@ function test() {
    }
 }
 
-test();
+test();    // Primero nos consologuea un Undefined ya que la variable A esta definida más abajo y no la puede encontrar (si estuviese definida más abajo pero por fuera, si la encontraría). Despues nos consologuea un 2 ya que la funcion no importa si esta definida antes o despues, ya estaba cargada.
 ```
 
 Y el de este código? :
@@ -127,7 +129,7 @@ function getFood(food) {
     return snack;
 }
 
-getFood(false);
+getFood(false);  // No retorna nada a la consola ya que no hay un console.log. Además es Undefined
 ```
 
 
@@ -147,11 +149,11 @@ var obj = {
    }
 };
 
-console.log(obj.prop.getFullname());
+console.log(obj.prop.getFullname()); // "Aurelio de Rosa" porque en este caso This hace referencia al nombre que esta dentro del bloque donde se declaro la funcion.
 
 var test = obj.prop.getFullname;
 
-console.log(test());
+console.log(test()); // "Juan Perez" en este caso test heredo la funcion y hace referencia al fullname del bloque que esta por fuera
 ```
 
 ### Event loop
@@ -166,5 +168,5 @@ function printing() {
    console.log(4);
 }
 
-printing();
+printing();  // El orden será 1 4 3 2, porque 1 y 4 no tienen ningun tiempo. Luego 3 tiene tiempo de 0 segundos, pero tiempo en fin. Y por ultimo 2 tiene 1 segundo de tiempo.
 ```
