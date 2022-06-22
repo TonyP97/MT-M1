@@ -15,16 +15,16 @@ var a = 5;
 var b = 10;
 var c = function(a, b, c) {
   var x = 10;
-  console.log(x);
-  console.log(a);
+  console.log(x);  // 10
+  console.log(a);  // 8 por el parametro pasado mas abajo
   var f = function(a, b, c) {
     b = a;
-    console.log(b);
+    console.log(b);  // 8
     b = c;
     var x = 5;
   }
   f(a,b,c);
-  console.log(b);
+  console.log(b); // 9 lo saca del contexto donde se ejecuta c
 }
 c(8,9,10);
 console.log(b);  // 10
@@ -33,7 +33,7 @@ console.log(x);  // 1
 
 ```javascript
 console.log(bar); // undefined
-console.log(baz);  // undefined
+console.log(baz);  // error
 foo();  // 'Hola!'
 function foo() { console.log('Hola!'); }
 var bar = 1;
@@ -61,7 +61,7 @@ console.log(instructor);  // "Tony"
 ```
 
 ```javascript
-var instructor = "Tony";
+var instructor = "Tony";  // var vive en un contexto donde lo pueden definir las funciones. let vive en un contexto de bloque.
 let pm = "Franco";
 if (true) {
     var instructor = "The Flash";
@@ -69,8 +69,8 @@ if (true) {
     console.log(instructor); // "The Flash"
     console.log(pm);  //  "Reverse Flash"
 }
-console.log(instructor); // "The Flash"
-console.log(pm);  // "Franco"
+console.log(instructor); // "The Flash" porque la funcion lo redefinio
+console.log(pm);  // "Franco" porque el let es el global no el del if
 ```
 ### Coerción de Datos
 
@@ -78,8 +78,8 @@ console.log(pm);  // "Franco"
 
 ```javascript
 6 / "3"  // 2
-"2" * "3"  // 6
-4 + 5 + "px" // 9px
+"2" * "3"  // 6  // convierte los string a numero porwue hay una operacin matematica
+4 + 5 + "px" // 9px  // lo que no es un numero lo concatena
 "$" + 4 + 5  // $45
 "4" - 2  // 2
 "4px" - 2 // NaN
@@ -104,8 +104,8 @@ parseInt("09") // 9
 
 ```javascript
 function test() {
-   console.log(a);
-   console.log(foo());
+   console.log(a);   // undefined
+   console.log(foo());  // 2
 
    var a = 1;
    function foo() {
