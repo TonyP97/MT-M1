@@ -15,9 +15,24 @@ Como ejercicio adicional y completamente opcional, al terminar de resolver este 
 */
 
 function nFactorial(n) {
+  if (n === 0 || n === 1) return n;
+  else if (n < 0) return "Error";
+  return n * nFactorial(n - 1);
+  // var factorial = 1;
+  // for (var i = 1; i <= n; i++){
+  //   factorial = factorial * i;
+  // }
+  // return factorial;
 }
 
 function nFibonacci(n) {
+  if (n <= 1) return n;
+  return nFibonacci(n - 1) + nFibonacci(n - 2);
+  // var fib = [0, 1];
+  // for (var i = 2; i <=n; i++){
+  //   fib[i] = fib[i - 1] + fib[i - 2];
+  // }
+  // return fib[n]
 }
 
 /*
@@ -30,8 +45,24 @@ Pueden utilizar class o función constructora.
 */
 
 function Queue() {
-
+// con un for y ajustando la posicion del indice del array
+// enqueue va a ser push
+// denqueue va a ser pop
+  this.arr = [];
+  this.enqueue = function (element) {
+    this.arr.push(element);
+  },
+  this.dequeue = function () {
+    if (this.arr.length === 0) {
+      return undefined
+    }
+    return this.arr.shift()
+  },
+  this.size = function() {
+    return this.arr.length;
+  }
 }
+
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
