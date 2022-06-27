@@ -24,14 +24,17 @@ function Node(value) {
 LinkedList.prototype.add = function(value) {
   var node = new Node(value);
   var current = this.head;
+  // mientras this.head sea null, le decimos que this.head sea este nodo, caso de que la lista este vacia
   if (current === null) {
     this.head = node;
     this._length++;
     return node;
   }
+  // mientras el valor de current en el proximo next exista, vamos a hacer que current sea el proximo current, y asi vamos iterando.
   while (current.next) {
     current = current.next;
   }
+  // cuando ya no suceda lo de arriba, current.next va a ser el nodo que estamos agregando
   current.next = node;
   this._length++;
   return node;
