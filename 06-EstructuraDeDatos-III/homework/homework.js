@@ -52,16 +52,18 @@ BinarySearchTree.prototype.insert = function(value){
 };
 
 BinarySearchTree.prototype.contains = function(value){
+  // lo encuentra en la primera
   if(value === this.value) return true;
   // si es mas grande me fijo en la derecha.
   if(value > this.value){
     // si no tengo nada
     if(this.right === null) return false
-    // si tengo derecha
+    // si tengo derecha aplico recursion
     return this.right.contains(value)
   }else{
     // me fijo en la izquierda
     if(this.left === null) return false
+    // recursion
     return this.left.contains(value)
   }
 };
@@ -104,9 +106,10 @@ BinarySearchTree.prototype.breadthFirstForEach = function(cb, arr){
 
   this.left && arr.push(this.left);
   this.right && arr.push(this.right);
-
+  // caso corte, cuando no haya nada en el arr ya no va a continuar
   arr.length && arr.shift().breadthFirstForEach(cb, arr);
 };
+// hago la primer vuelta sobre el primer nodo por ejemplo 20, aplico el cb a ese nodo que dentro tiene los hijos 12 y 15, entonces mi array va a ser 15 y 15. Antes de terminar pregunto: arr tiene length? si tiene, entonces hace un shift, saca el primer valor y volver a empezar la funcion con el primer valor del array o sea 15. Resulta que 15 tiene dentro 17,21,28 entonces le vuelvo a preguntar si tiene length, como la repsuesta es si, saco el primer valor con un shift y le vuelvo a aplicar la funcion con el primer valor o sea 17.
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
