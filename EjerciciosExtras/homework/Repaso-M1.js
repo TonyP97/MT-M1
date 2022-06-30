@@ -16,7 +16,19 @@ const {
 
 var countArray = function(array) {
     // Tu código aca:
-    
+    let suma = 0;
+    // caso de corte
+    if (array.length <= 1) return array;
+
+    // separo y recorro el array
+    for (let i = 0; i < array.length; i++) {
+        if (Array.isArray(array[i])){
+            suma = suma + countArray(array[i]);
+        }else{
+        suma = suma + array[i];
+        }
+    }
+    return suma;
 }
 
 
@@ -39,7 +51,15 @@ var countArray = function(array) {
 
 var countProps = function(obj) {
     // Tu código aca:
-
+    let contador = 0;
+    for (prop in obj){ // reviso las propiedades del objeto
+        if (typeof obj[prop] == "object" && !Array.isArray(obj[prop])){ // si la propiedad es un objeto y ese no es un array, aplico recursion sobre ese objeto de la propiedad
+            contador = contador + countProps(obj[prop]);
+        }
+        contador++; // aumento el contador con cada propiedad
+    }
+    // contador = Object.keys(obj).length
+    return contador
 }
 
 
@@ -53,7 +73,16 @@ var countProps = function(obj) {
 
 LinkedList.prototype.changeNotNumbers = function(){
     // Tu código aca:
-
+    let contador = 0;
+    let current = this.head;
+    while(current){
+        if(isNaN(Number(current.value))){ // is NotaNumber ese valor al que estoy viendo si es un numero
+            current.value = "Kiricocho" // si devuelve true, porque no es un numero, le reemplazo el valor por kiricocho.
+            contador++; // se le suma 1 para devolver la cantidad de cambios que hizo
+        }
+        current = current.next; // si no se cumple lo de arriba, pasa al siguiente current.
+    }
+    return contador;
 }
 
 
@@ -67,7 +96,19 @@ LinkedList.prototype.changeNotNumbers = function(){
 
 var mergeQueues = function(queueOne, queueTwo) {
     // Tu código aca:
-
+    let newQueue = new Queue;
+    while(queueOne.size() || queueTwo.size()) {// Mientras las queues tengan algo. nos fijamos con la funcion size ya implementada en el archivo ds.
+        // a cada una de las listas vamos a sacar un elemento y agregarlo a la nueva lista.
+        if(queueOne.size()){ // Si este elemento tiene algo, se lo voy a sacar y lo voy a guardar en una variable
+            let first = queueOne.dequeue();
+            newQueue.enqueue(first);
+        }
+        if(queueTwo.size()){
+            let second = queueTwo.dequeue();
+            newQueue.enqueue(second);
+        }
+    }
+    return newQueue; // despues de haber comprobado si tenian elementos los queues, y haberlos pusheado en orden al nuevo queue. retornamos el newqueue
 }
 
 
@@ -82,6 +123,9 @@ var mergeQueues = function(queueOne, queueTwo) {
 
 var closureMult = function(multiplier) {
     // Tu código aca:
+    return function(num){
+        return num * multiplier; // retorna una funcion a la que le paso un valor, y esa funcion me retorna el valor multiplicado por el valor de la primer funcion
+    }
 
 }
 
@@ -89,7 +133,34 @@ var closureMult = function(multiplier) {
 // que debe retornar la suma total de los valores dentro de cada nodo del arbol
 BinarySearchTree.prototype.sum = function() {
     // Tu código aca:
-
+    // if (this.value === null) {return 0};
+    // var sumador = this.value
+    // if(this.left && !this.rigth){
+    //     if (typeof this.left.value == "number"){
+    //         sumador = sumador + this.left.value;
+    //         return this.left.sum()
+    //     }
+    // }
+    // if(this.right && !this.left){
+    //     if(typeof this.right.value == "number"){
+    //         sumador = sumador + this.right.value;
+    //         return this.right.sum()
+    //     }
+    // }
+    // if(this.right && this.left){
+    //     if(typeof this.left.value == "number" && typeof this.right.value == "number")
+    //         sumador = sumador + this.left.value + this.right.value;
+    //         return this.left.sum() + this.right.sum();
+    // }
+    // return sumador;
+    if (!this.left && !this.right) return this.value;
+    if (!this.right){
+        return this.value + this.left.sum()
+    }
+    if (!this.left){
+        return this.value + this.right.sum()
+    }
+    return this.value + this.right.sum() + this.left.sum();
 }
 
 module.exports = {

@@ -37,7 +37,7 @@ function bubbleSort(array) {
   // **optimizacion**
   //si detecta que dio una vuelta y no hizo cambios, corta.
    
-  var flag = true;
+  var flag = true; // optimizacion
   
   while (flag){
     flag = false;
